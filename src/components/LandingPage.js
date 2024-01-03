@@ -3,7 +3,8 @@ import {
   Box,
   Grid,
   Button,
-  CircularProgress
+  CircularProgress,
+  Snackbar
 } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
@@ -26,10 +27,21 @@ export default function LandingPage() {
   const [todos, setTodos] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [dialogStatus, setDialogStatus] = React.useState(initialDialog);
+  const [snackBar, setSnackBar] = React.useState({
+    open: false,
+    message: ''
+  })
 
   const handleClose = () => {
     setDialogStatus(initialDialog);
   };
+
+  const closeSnackbar = () => {
+    setSnackBar({
+      open: false,
+      message: ''
+    })
+  }
 
   React.useEffect(() => {
     setLoading(true);
@@ -46,7 +58,7 @@ export default function LandingPage() {
     setDialogStatus({
       open: true,
       title: "Create New Todo",
-      content: <EditTodo todos={todos} setTodos={setTodos} handleClose={handleClose} />
+      content: <EditTodo todos={todos} setTodos={setTodos} handleClose={handleClose} setSnackBar={setSnackBar} />
     });
   }
 
@@ -89,7 +101,7 @@ export default function LandingPage() {
             <Box sx={{ m: 3, height: '100%' }}>
               {
                 todos && !loading ? todos.map((todo) => {
-                  return <EachTodo key={todo.id} todo={todo} setDialog={setDialogStatus} handleClose={handleClose} todos={todos} setTodos={setTodos} />
+                  return <EachTodo key={todo.id} todo={todo} setDialog={setDialogStatus} handleClose={handleClose} setSnackBar={setSnackBar} todos={todos} setTodos={setTodos} />
                 }) : (loading ? (
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '95%' }}>
                     <CircularProgress />
@@ -125,6 +137,13 @@ export default function LandingPage() {
           </Box>
         </Box>
       </Grid>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal:'right' }}
+        open={snackBar.open}
+        autoHideDuration={3000}
+        onClose={closeSnackbar}
+        message={snackBar.message}
+      />
     </>
   )
 }
