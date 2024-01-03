@@ -8,7 +8,7 @@ import EditTodo from './EditTodo';
 // Api related imports
 import { DeleteTodo } from '../services/apiservices';
 
-export default function EachTodo({ todo, setDialog, handleClose, todos, setTodos }) {
+export default function EachTodo({ todo, setDialog, handleClose, todos, setTodos, setSnackBar }) {
     const { id, title, completed } = todo;
     const [inFocus, setFocus] = React.useState(false);
 
@@ -45,7 +45,7 @@ export default function EachTodo({ todo, setDialog, handleClose, todos, setTodos
         setDialog({
             open: true,
             title: "Edit Todo",
-            content: <EditTodo todos={todos} setTodos={setTodos} id={id} handleClose={handleClose} />
+            content: <EditTodo todos={todos} setTodos={setTodos} id={id} handleClose={handleClose} setSnackBar={setSnackBar} />
         });
     }
     const setLoading = (val, id) => {
@@ -82,6 +82,10 @@ export default function EachTodo({ todo, setDialog, handleClose, todos, setTodos
                                 setTodos((prev) => {
                                     return prev.filter((el) => el.id !== id);
                                 });
+                                setSnackBar({
+                                    open: true,
+                                    message: "Deleted Todo successfully!"
+                                })
                             })
                             .finally(() => {
                                 setLoading(false, 2);

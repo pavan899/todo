@@ -6,7 +6,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { UpdateTodo, CreateTodo } from '../services/apiservices';
 
 
-export default function EditTodo({ todos, id, handleClose, setTodos }) {
+export default function EditTodo({ todos, id, handleClose, setTodos, setSnackBar }) {
     const currentTodo = id ? todos.filter((el) => el.id === id)[0] : {
         title: '',
         completed: false,
@@ -42,6 +42,11 @@ export default function EditTodo({ todos, id, handleClose, setTodos }) {
                             return newData;
                         })
                     })
+                    
+                    setSnackBar({
+                        open: true,
+                        message: "Updated Todo successfully!"
+                    })
                 })
         } else {
             data = CreateTodo(newData)
@@ -49,6 +54,11 @@ export default function EditTodo({ todos, id, handleClose, setTodos }) {
                     handleClose();
                     setTodos((prev) => {
                         return [newData, ...prev];
+                    })
+                    
+                    setSnackBar({
+                        open: true,
+                        message: "Created New Todo successfully!"
                     })
                 })
         }
