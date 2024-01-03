@@ -3,6 +3,17 @@ A sample todo app with basic CRUD operations, developed as part of assignment fo
 
 You can Preview the application here:  [Preview](https://todo-test-steel-nine.vercel.app/)
 
+#### Steps to Clone Application into your local computer
+-  Make Sure Node and npx are installed in your computer (this is created using **node - v18.16.0** & **npx - v9.5.1**)
+-  Clone the project into your local computer using the command:
+  > git clone https://github.com/pavan899/todo.git
+-  Change Directory to the root folder using
+  > cd todo
+-  Install all dependancies using below command
+  > npm i
+-  start the node server suing below command
+  > npm start
+
 ## Features
 - List All Todo Tasks
 - Create New Task
