@@ -138,7 +138,7 @@ export default function LandingPage() {
         </Box>
       </Grid>
       <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal:'right' }}
+        anchorOrigin={{ vertical: 'top', horizontal:'cemter' }}
         open={snackBar.open}
         autoHideDuration={3000}
         onClose={closeSnackbar}

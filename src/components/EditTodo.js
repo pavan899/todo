@@ -23,6 +23,11 @@ export default function EditTodo({ todos, id, handleClose, setTodos, setSnackBar
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+
+    const validTitle = (title) => {
+        return title !== ""
+    }
+
     const saveUpdatedTodo = async () => {
         var data;
         setLoading(true);
@@ -31,6 +36,14 @@ export default function EditTodo({ todos, id, handleClose, setTodos, setSnackBar
             title: todoTitle,
             completed: value === "completed" ? true : false,
             id: id || currId + 1
+        }
+        if(!validTitle(todoTitle)) {
+            setSnackBar({
+                open: true,
+                message: "Title value cannot be empty!"
+            });
+            setLoading(false);
+            return;
         }
         if (id) {
             data = UpdateTodo(newData)
